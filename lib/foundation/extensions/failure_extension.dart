@@ -4,10 +4,10 @@ import 'package:books_app/foundation/generated/locale_keys.g.dart';
 
 extension FailureMessageExtension on Failure {
   String mapToMessage() {
-    switch (runtimeType) {
-      case ServerFailure:
+    switch (this) {
+      case ServerFailure _:
         return LocaleKeys.server_error.translate;
-      case CacheFailure:
+      case CacheFailure _:
         return LocaleKeys.cache_error.translate;
       default:
         return LocaleKeys.error.translate;
