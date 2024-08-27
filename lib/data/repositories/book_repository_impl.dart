@@ -88,9 +88,6 @@ final class BookRepositoryImpl implements BookRepository {
     return DataWrappers<List<Book>>().localOnlyTryCatchWrapper(
       () async {
         final books = await _localDataSource.getFavoriteBooks();
-        if (books == null) {
-          return [];
-        }
         return books.map((e) => e.toEntity()).toList();
       },
     );

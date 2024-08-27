@@ -73,7 +73,7 @@ void main() {
       act: (bloc) => bloc.add(GetFavoriteBooksEvent()),
       expect: () => [
         FavoriteLoading(),
-        const FavoriteError(message: 'Server'),
+        const FavoriteError(message: 'server_error'),
       ],
       verify: (bloc) {
         verify(mockGetFavoriteBooksUseCase(NoParams())).called(1);

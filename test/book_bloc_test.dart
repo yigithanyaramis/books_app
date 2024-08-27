@@ -77,7 +77,7 @@ void main() {
       act: (bloc) => bloc.add(GetBooksEvent()),
       expect: () => [
         BookLoading(),
-        const BookError(message: 'Server'),
+        const BookError(message: 'server_error'),
       ],
       verify: (bloc) {
         verify(mockGetBooksUseCase(NoParams())).called(1);

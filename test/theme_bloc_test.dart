@@ -23,21 +23,21 @@ void main() {
       'emits [ThemeUpdated] when ThemeChanged is added with ThemeMode.light',
       build: () => themeBloc,
       act: (bloc) => bloc.add(ThemeChanged(ThemeMode.light)),
-      expect: () => [ThemeUpdated(ThemeMode.light)],
+      expect: () => [const ThemeUpdated(ThemeMode.light)],
     );
 
     blocTest<ThemeBloc, ThemeState>(
       'emits [ThemeUpdated] when ThemeChanged is added with ThemeMode.dark',
       build: () => themeBloc,
       act: (bloc) => bloc.add(ThemeChanged(ThemeMode.dark)),
-      expect: () => [ThemeUpdated(ThemeMode.dark)],
+      expect: () => [const ThemeUpdated(ThemeMode.dark)],
     );
 
     blocTest<ThemeBloc, ThemeState>(
       'emits [ThemeUpdated] when ThemeChanged is added with ThemeMode.system',
       build: () => themeBloc,
       act: (bloc) => bloc.add(ThemeChanged(ThemeMode.system)),
-      expect: () => [ThemeUpdated(ThemeMode.system)],
+      expect: () => [const ThemeUpdated(ThemeMode.system)],
     );
   });
 }

@@ -1,4 +1,5 @@
 import 'package:books_app/domain/entities/villain.dart';
+import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -6,8 +7,8 @@ part 'villain_model.g.dart';
 
 @JsonSerializable()
 @HiveType(typeId: 1)
-final class VillainModel {
-  const VillainModel({
+final class VillainModel extends HiveObject with EquatableMixin {
+  VillainModel({
     this.name,
     this.url,
   });
@@ -31,8 +32,11 @@ final class VillainModel {
   }
 
   @HiveField(0)
-  final String? name;
+  late final String? name;
 
   @HiveField(1)
-  final String? url;
+  late final String? url;
+
+  @override
+  List<Object?> get props => [name, url];
 }

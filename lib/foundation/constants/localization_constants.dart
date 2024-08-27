@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class LocalizationConstants {
+final class LocalizationConstants {
   LocalizationConstants._();
   static const Locale tr = Locale('tr');
   static const Locale en = Locale('en');

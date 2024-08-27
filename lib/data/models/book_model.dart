@@ -1,5 +1,6 @@
 import 'package:books_app/data/models/villain_model.dart';
 import 'package:books_app/domain/entities/book.dart';
+import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -7,7 +8,7 @@ part 'book_model.g.dart';
 
 @JsonSerializable()
 @HiveType(typeId: 0)
-final class BookModel extends HiveObject {
+final class BookModel extends HiveObject with EquatableMixin {
   BookModel({
     this.id,
     this.year,
@@ -91,4 +92,18 @@ final class BookModel extends HiveObject {
 
   @HiveField(9)
   late final List<VillainModel>? villains;
+  
+  @override
+  List<Object?> get props => [
+    id,
+    year,
+    title,
+    handle,
+    publisher,
+    isbn,
+    pages,
+    notes,
+    createdAt,
+    villains,
+  ];
 }

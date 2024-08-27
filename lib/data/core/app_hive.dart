@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-final class AppHive<T> {
+class AppHive<T> {
   late Box<dynamic> _box;
 
   Future<void> init(String boxName) async {

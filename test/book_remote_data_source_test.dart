@@ -21,6 +21,10 @@ void main() {
     dataSource = BookRemoteDataSourceImpl(mockDio);
   });
 
+  tearDown(() {
+    mockDio.close();
+  });
+
   group('getBooks', () {
     final tBookList = [
       BookModel(id: 1, title: 'Test Book 1'),
@@ -33,8 +37,8 @@ void main() {
         (_) async => Response(
           data: {
             'data': [
-              {'id': 1, 'title': 'Test Book 1'},
-              {'id': 2, 'title': 'Test Book 2'},
+              {'id': 1, 'Title': 'Test Book 1'},
+              {'id': 2, 'Title': 'Test Book 2'},
             ],
           },
           statusCode: HttpStatus.ok,
@@ -50,7 +54,6 @@ void main() {
 
     test('should throw a ServerException when the response code is not 200',
         () async {
-      // arrange
       when(mockDio.get<Map<String, dynamic>>(any)).thenAnswer(
         (_) async => Response(
           statusCode: HttpStatus.notFound,
@@ -58,10 +61,8 @@ void main() {
         ),
       );
 
-      // act
       final call = dataSource.getBooks;
 
-      // assert
       expect(call, throwsA(isA<ServerException>()));
     });
   });
@@ -74,11 +75,10 @@ void main() {
         // ignore: lines_longer_than_80_chars
         'should perform a GET request on a URL with the bookId being the endpoint',
         () async {
-      // arrange
       when(mockDio.get<Map<String, dynamic>>(any)).thenAnswer(
         (_) async => Response(
           data: {
-            'data': {'id': tBookId, 'title': 'Test Book 1'},
+            'data': {'id': tBookId, 'Title': 'Test Book 1'},
           },
           statusCode: HttpStatus.ok,
           requestOptions: RequestOptions(),
@@ -87,7 +87,6 @@ void main() {
 
       final result = await dataSource.getBookById(tBookId.toString());
 
-      // assert
       verify(
         mockDio.get<Map<String, dynamic>>(
           ApiConstants.bookById(tBookId.toString()),
@@ -98,7 +97,6 @@ void main() {
 
     test('should throw a ServerException when the response code is not 200',
         () async {
-      // arrange
       when(mockDio.get<Map<String, dynamic>>(any)).thenAnswer(
         (_) async => Response(
           statusCode: HttpStatus.notFound,
@@ -106,10 +104,8 @@ void main() {
         ),
       );
 
-      // act
       final call = dataSource.getBookById;
 
-      // assert
       expect(() => call(tBookId.toString()), throwsA(isA<ServerException>()));
     });
   });
