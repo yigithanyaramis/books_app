@@ -137,13 +137,12 @@ void main() {
       expect(result, equals(tBooks));
     });
 
-    test('should throw a Failure when there is no data', () {
+    test('should return an empty list when there is no data', () async {
       when(mockFavoriteBooksHive.getData(key: HiveConstants.favoriteBooks))
           .thenReturn(null);
-      expect(
-        () => mockBookLocalDataSourceImpl.getFavoriteBooks(),
-        throwsA(isA<CacheException>()),
-      );
+
+      final result = await mockBookLocalDataSourceImpl.getFavoriteBooks();
+      expect(result, equals([]));
     });
   });
 
@@ -171,16 +170,6 @@ void main() {
           mockFavoriteBooksHive.getData(key: HiveConstants.favoriteBooks);
       expect(result, equals(tBooks));
     });
-
-    test('should throw a Failure when the operation is unsuccessful', () {
-      when(mockFavoriteBooksHive.getData(key: HiveConstants.favoriteBooks))
-          .thenReturn(null);
-
-      expect(
-        () => mockBookLocalDataSourceImpl.addToFavorites(tBook),
-        throwsA(isA<CacheException>()),
-      );
-    });
   });
 
   group('removeFromFavorites', () {
@@ -206,16 +195,6 @@ void main() {
       final result =
           mockFavoriteBooksHive.getData(key: HiveConstants.favoriteBooks);
       expect(result, equals(tBooks));
-    });
-
-    test('should throw a Failure when the operation is unsuccessful', () {
-      when(mockFavoriteBooksHive.getData(key: HiveConstants.favoriteBooks))
-          .thenReturn(null);
-
-      expect(
-        () => mockBookLocalDataSourceImpl.removeFromFavorites(tBook),
-        throwsA(isA<CacheException>()),
-      );
     });
   });
 
@@ -247,17 +226,6 @@ void main() {
       );
 
       expect(result, equals(false));
-    });
-
-    test('should throw a Failure when the operation is unsuccessful', () {
-      when(mockFavoriteBooksHive.getData(key: HiveConstants.favoriteBooks))
-          .thenReturn(null);
-
-      expect(
-        () => mockBookLocalDataSourceImpl
-            .checkFavoriteStatus(tBook.id.toString()),
-        throwsA(isA<CacheException>()),
-      );
     });
   });
 }

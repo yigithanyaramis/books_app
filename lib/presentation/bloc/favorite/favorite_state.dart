@@ -19,7 +19,6 @@ final class FavoriteLoaded extends FavoriteState {
   List<Object?> get props => [favorites];
 }
 
-
 final class FavoriteError extends FavoriteState {
   const FavoriteError({required this.message});
   final String message;

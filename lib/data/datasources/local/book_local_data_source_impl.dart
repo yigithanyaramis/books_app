@@ -73,9 +73,7 @@ final class BookLocalDataSourceImpl implements BookLocalDataSource {
     if (books != null) {
       return books.cast<BookModel>();
     } else {
-      return Future.error(
-        CacheException(LocaleKeys.saved_book_not_found.translate),
-      );
+      return [];
     }
   }
 

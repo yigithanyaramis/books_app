@@ -82,8 +82,8 @@ Future<void> setup() async {
         getBooksUseCase: getIt(),
       ),
     )
-    ..registerFactory<FavoriteBloc>(
-      () => FavoriteBloc(
+    ..registerSingleton<FavoriteBloc>(
+      FavoriteBloc(
         getFavoriteBooksUseCase: getIt(),
       ),
     )

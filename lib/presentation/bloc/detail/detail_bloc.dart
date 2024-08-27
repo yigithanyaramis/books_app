@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:books_app/core/services/notification_service/notification_service.dart';
+import 'package:books_app/di/di.dart';
 import 'package:books_app/domain/entities/add_to_favorites_params.dart';
 import 'package:books_app/domain/entities/book.dart';
 import 'package:books_app/domain/entities/check_favorite_status_params.dart';
@@ -14,6 +15,7 @@ import 'package:books_app/domain/usecases/remove_from_favorites_usecase.dart';
 import 'package:books_app/foundation/extensions/failure_extension.dart';
 import 'package:books_app/foundation/extensions/string_extension.dart';
 import 'package:books_app/foundation/generated/locale_keys.g.dart';
+import 'package:books_app/presentation/bloc/favorite/favorite_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 part 'detail_event.dart';
@@ -119,6 +121,7 @@ final class DetailBloc extends Bloc<DetailEvent, DetailState> {
               scheduleTime,
             ),
           );
+          getIt<FavoriteBloc>().add(GetFavoriteBooksEvent());
           emit(FavoritesUpdated(book: event.book));
         },
       );
@@ -141,6 +144,7 @@ final class DetailBloc extends Bloc<DetailEvent, DetailState> {
         },
         (_) async {
           unawaited(notificationService.cancelNotification(event.book.id));
+          getIt<FavoriteBloc>().add(GetFavoriteBooksEvent());
           emit(FavoritesUpdated(book: event.book));
         },
       );
